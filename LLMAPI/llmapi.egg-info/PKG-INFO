@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: llmapi
+Version: 0.1.0
+Summary: RAG API over Postgres pgvector for AIConversational.
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.116.0
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: langchain-core>=0.3.59
+Requires-Dist: langchain-google-genai>=2.1.4
+Requires-Dist: langgraph>=0.6.0
+Requires-Dist: pgvector>=0.4.2
+Requires-Dist: psycopg[binary]>=3.3.3
+Requires-Dist: pydantic-settings>=2.13.1
+Requires-Dist: sentence-transformers>=5.3.0
+Requires-Dist: sqlalchemy>=2.0.45
+Requires-Dist: structlog>=25.5.0
+Requires-Dist: uvicorn>=0.38.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.4.0; extra == "dev"
+
+# LLMAPI
+
+FastAPI backend for RAG chat over the embeddings stored in PostgreSQL `pgvector`.
+
+## Endpoints
+
+- `GET /api/health`
+- `POST /api/chat`
+
+## How It Works
+
+1. Accepts a user question
+2. Embeds the question using `sentence-transformers`
+3. Searches `document_chunks` in Postgres with `pgvector`
+4. Sends top matching chunks plus the question to an Ollama model
+5. Returns the answer and source chunks
+
+## Run
+
+```bash
+copy .env.example .env
+python -m pip install -e .
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+## Required Data
+
+This API expects the `document_chunks` table created by the ingestion pipeline, including:
+
+- `content`
+- `chunk_index`
+- `unit_index`
+- `metadata`
+- `embedding`

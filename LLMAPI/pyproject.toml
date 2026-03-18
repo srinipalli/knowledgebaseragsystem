@@ -1,0 +1,32 @@
+[project]
+name = "llmapi"
+version = "0.1.0"
+description = "RAG API over Postgres pgvector for AIConversational."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.116.0",
+  "httpx>=0.28.1",
+  "langchain-core>=0.3.59",
+  "langchain-google-genai>=2.1.4",
+  "langgraph>=0.6.0",
+  "pgvector>=0.4.2",
+  "psycopg[binary]>=3.3.3",
+  "pydantic-settings>=2.13.1",
+  "sentence-transformers>=5.3.0",
+  "sqlalchemy>=2.0.45",
+  "structlog>=25.5.0",
+  "uvicorn>=0.38.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4.0",
+]
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app"]

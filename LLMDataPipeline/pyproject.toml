@@ -1,0 +1,43 @@
+[project]
+name = "llm-data-pipeline"
+version = "0.1.0"
+description = "Folder-based LangGraph ingestion pipeline for large documents into Postgres pgvector."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "alembic>=1.14.0",
+  "fastapi>=0.116.0",
+  "langchain-text-splitters>=0.3.8",
+  "langgraph>=0.6.0",
+  "pgvector>=0.3.6",
+  "psycopg[binary]>=3.2.0",
+  "pydantic-settings>=2.7.0",
+  "pymupdf>=1.25.0",
+  "python-docx>=1.1.2",
+  "python-dotenv>=1.0.1",
+  "sentence-transformers>=3.4.1",
+  "sqlalchemy>=2.0.36",
+  "structlog>=25.1.0",
+  "typer>=0.16.0",
+  "uvicorn>=0.34.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.4",
+  "pytest-asyncio>=0.25.0",
+]
+
+[project.scripts]
+llm-pipeline = "app.cli.main:app"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

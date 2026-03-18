@@ -1,0 +1,2 @@
+[console_scripts]
+llm-pipeline = app.cli.main:app
